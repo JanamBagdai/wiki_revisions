@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Wikipedia revisions vs solar events</title>
+</head>
+<body>
+    <form method="post" action="{% url 'parse_events_and_generate_graphs' %}" style="max-width: 400px; margin: auto;">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div style="color: red; margin-top: 5px;">
+            {{ form.errors.days }}
+        </div>
+        <input type="submit" value="Submit" style="margin-top: 10px; background-color: #4CAF50; color: white; padding: 10px;">
+    </form>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Wikipedia Revisions Around Solar Events</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+
+{% for url, revision_counts in graph_data.items %}
+    <div id="{{ url }}-graph"></div>
+
+    <script>
+        var eventRevisionCounts = {{ revision_counts|safe }};
+        var eventDates = Object.keys(eventRevisionCounts);
+        var eventTraces = [];
+        for (var i = 0; i < eventDates.length; i++) {
+            eventTraces.push({
+                x: [eventDates[i]],
+                y: [1],  
+                mode: 'markers',
+                type: 'scatter',
+                marker: {
+                    size: 10,
+                    color: 'blue',
+                },
+                text: ['Event: ' + eventDates[i]],
+                name: 'Event datetime - ' + eventDates[i]
+            });
+        }
+      
+        var revisionTraces = [];
+        for (var i = 0; i < eventDates.length; i++) {
+            var revisions = eventRevisionCounts[eventDates[i]];
+            for (var j = 0; j < revisions.length; j++) {
+                var revision = revisions[j];
+                revisionTraces.push({
+                    x: [revision.timestamp],
+                    y: [2],  
+                    mode: 'markers',
+                    type: 'scatter',
+                    marker: {
+                        size: 8,
+                        color: 'orange',
+                    },
+                    text: [`Revision: ${revision.timestamp}\nComment: ${revision.comment}`],
+                    name: `Revision datetime- ${revision.timestamp}`
+                });
+            }
+        }
+        
+        var traces = eventTraces.concat(revisionTraces);
+        var layout = {
+            title: 'Wikipedia Revisions after Solar Events upto entered number of days - {{ url }}',
+            xaxis: {
+                title: 'Timeline',
+                tickangle: -45,
+                type: 'date'
+            },
+            yaxis: {
+                title: 'Markers',
+                tickvals: [1, 2],
+                ticktext: ['Events', 'Revisions'],
+                autorange: 'reversed'
+            }
+        };
+        Plotly.newPlot('{{ url }}-graph', traces, layout);
+
+    </script>
+{% endfor %}
+
+{% for url, revision_counts in graph_data.items %}
+    <div id="{{ url }}-graph2"></div>
+
+    <script>
+        var eventRevisionCounts = {{ revision_counts|safe }};
+        var eventDates = Object.keys(eventRevisionCounts);
+        var traces = [];
+        for (var i = 0; i < eventDates.length; i++) {
+            var revisions = eventRevisionCounts[eventDates[i]];
+            traces.push({
+                x: [eventDates[i]],
+                y: [revisions.length],
+                type: 'bar',  
+                marker: {
+                    color: 'orange',
+                },
+                text: revisions.map(function (revision) { return `Revision: ${revision.timestamp}\nComment: ${revision.comment}`; }),
+                name: `Wikipedia Revisions counts for event: ${eventDates[i]}`
+            });
+        }
+
+        var layout = {
+            title: 'Wikipedia Revisions count after Solar Events upto entered number of days - {{ url }}',
+            xaxis: {
+                title: 'Event Date',
+                tickangle: -45,
+                type: 'date'
+            },
+            yaxis: {
+                title: 'Number of Revisions'
+            }
+        };
+
+        Plotly.newPlot('{{ url }}-graph2', traces, layout);
+
+    </script>
+{% endfor %}
+
+<br/>
+
+</body>
+</html>
