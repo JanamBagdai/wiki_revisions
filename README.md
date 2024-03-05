@@ -39,6 +39,10 @@ To run TS/JS tests, use `npm run test`.
 
 # output
 URL: http://127.0.0.1:8000/pages/
+The user is required to enter a numerical value that will serve as the window width. For instance, if an event occurs on date 'X,' then considering the number entered (let's call it 'N'), the system will look for revisions within the time frame from 'X' to 'X + N' days for that particular event.
+
+![image](https://github.com/JanamBagdai/wiki_revisions/assets/58061119/4a2112b4-83e9-404a-9066-e7c884b46d58)
+
 
 ![image](https://github.com/JanamBagdai/wiki_revisions/assets/58061119/4a9d4b30-40a2-4ade-9f1b-010935c70bfe)
 
