@@ -1,4 +1,4 @@
-# django-base
+# django-base setup
 A basic boilerplate Django project prepped with poetry and Rollup. It uses the Django project default database SQLite.
 
 ## Setup
@@ -36,4 +36,12 @@ See Django documentation for other commands, such as generating and applying mig
 
 To run python tests, use `poetry run pytest`.
 To run TS/JS tests, use `npm run test`.
+
+# output
+URL: http://127.0.0.1:8000/pages/
+
+![image](https://github.com/JanamBagdai/wiki_revisions/assets/58061119/4a9d4b30-40a2-4ade-9f1b-010935c70bfe)
+
+![image](https://github.com/JanamBagdai/wiki_revisions/assets/58061119/a199d6fa-81b2-458c-9f15-111cc7d479eb)
+
 
